@@ -63,8 +63,8 @@ export default function Members() {
       _user_id: user.id,
       _amount: prize,
       _reason: "daily_spin",
-      _meta: null,
     });
+
     setSpinning(false);
     if (error) {
       toast.error(error.message);
