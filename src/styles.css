@@ -260,3 +260,73 @@
 .shine:hover::after {
   animation: shine-sweep 0.9s ease;
 }
+
+/* ---- Cinematic FX: neon glow, embers, fog, flicker, scanlines ---- */
+@keyframes neon-breathe {
+  0%, 100% { text-shadow: 0 0 18px color-mix(in oklab, var(--primary) 60%, transparent), 0 0 60px color-mix(in oklab, var(--primary) 30%, transparent); }
+  50% { text-shadow: 0 0 34px color-mix(in oklab, var(--primary) 90%, transparent), 0 0 110px color-mix(in oklab, var(--primary-glow) 55%, transparent); }
+}
+.neon-title { animation: neon-breathe 4.5s ease-in-out infinite; }
+
+@keyframes neon-flicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
+  20%, 24%, 55% { opacity: 0.35; }
+}
+.flicker { animation: neon-flicker 6s linear infinite; }
+
+.neon-ring {
+  box-shadow: 0 0 0 1px color-mix(in oklab, var(--primary) 45%, transparent),
+              0 0 24px color-mix(in oklab, var(--primary) 25%, transparent),
+              inset 0 0 30px color-mix(in oklab, var(--primary) 10%, transparent);
+}
+.neon-ring:hover {
+  box-shadow: 0 0 0 1px color-mix(in oklab, var(--primary) 75%, transparent),
+              0 0 44px color-mix(in oklab, var(--primary) 45%, transparent),
+              inset 0 0 42px color-mix(in oklab, var(--primary) 18%, transparent);
+}
+
+@keyframes ember-rise {
+  0% { transform: translate3d(0, 0, 0) scale(1); opacity: 0; }
+  10% { opacity: 1; }
+  100% { transform: translate3d(var(--drift, 20px), -110vh, 0) scale(0.4); opacity: 0; }
+}
+.ember {
+  position: absolute;
+  bottom: -10px;
+  width: 3px;
+  height: 3px;
+  border-radius: 9999px;
+  background: var(--primary-glow);
+  box-shadow: 0 0 10px var(--primary-glow);
+  animation: ember-rise linear infinite;
+}
+
+@keyframes fog-drift {
+  0% { transform: translateX(-10%); }
+  100% { transform: translateX(10%); }
+}
+.fog {
+  position: absolute;
+  inset: -20% -20% auto -20%;
+  height: 140%;
+  background: radial-gradient(60% 40% at 30% 70%, oklch(0.55 0.24 25 / 0.16), transparent 70%),
+              radial-gradient(50% 35% at 75% 40%, oklch(0.7 0.24 35 / 0.12), transparent 70%);
+  animation: fog-drift 18s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+.scanlines::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(to bottom, oklch(0 0 0 / 0.18) 0 1px, transparent 1px 3px);
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+@keyframes float-slow { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+.float-slow { animation: float-slow 6s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .neon-title, .flicker, .ember, .fog, .float-slow { animation: none !important; }
+}
