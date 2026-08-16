@@ -28,6 +28,25 @@ export function useAuth() {
         setLoading(false);
         return;
       }
+      // Remixed projects lose the automatic account-setup step, so make sure
+      // this member has a profile row and a base role before reading them.
+      await supabase
+        .from("profiles")
+        .upsert(
+          {
+            user_id: next.user.id,
+            email: next.user.email ?? null,
+            display_name:
+              (next.user.user_metadata?.["display_name"] as string | undefined) ??
+              next.user.email?.split("@")[0] ??
+              "Member",
+          },
+          { onConflict: "user_id", ignoreDuplicates: true },
+        );
+      await supabase
+        .from("user_roles")
+        .upsert({ user_id: next.user.id, role: "member" }, { onConflict: "user_id,role", ignoreDuplicates: true });
+
       const [{ data: roles }, { data: profile }] = await Promise.all([
         supabase.from("user_roles").select("role").eq("user_id", next.user.id),
         supabase.from("profiles").select("display_name").eq("user_id", next.user.id).maybeSingle(),
@@ -35,6 +54,7 @@ export function useAuth() {
       if (!active) return;
       const staff = (roles ?? []).some((r) => r.role === "admin" || r.role === "owner");
       setIsAdmin(staff);
+
       setUser({
         id: next.user.id,
         email: next.user.email ?? "",

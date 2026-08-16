@@ -43,7 +43,7 @@ export default function AuthPage() {
     setBusy(true);
     try {
       if (mode === "signup") {
-        const { error } = await supabase.auth.signUp({
+        const { data, error } = await supabase.auth.signUp({
           email,
           password,
           options: {
@@ -52,9 +52,14 @@ export default function AuthPage() {
           },
         });
         if (error) throw error;
-        toast.success("Member account created. Sign in to claim your starting credits.");
-        setMode("signin");
+        if (data.session) {
+          toast.success("Member account created. Welcome to City of Fears.");
+        } else {
+          toast.success("Member account created. Sign in to claim your starting credits.");
+          setMode("signin");
+        }
       } else {
+
         const { error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
         toast.success("Signed in");
