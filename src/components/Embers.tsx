@@ -1,7 +1,11 @@
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 /** Floating ember particles for dark hero sections. Purely decorative. */
 export function Embers({ count = 28 }: { count?: number }) {
+  // Positions are random, so only render after hydration to avoid SSR mismatch.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
   const embers = useMemo(
     () =>
       Array.from({ length: count }, (_, i) => ({
@@ -15,6 +19,9 @@ export function Embers({ count = 28 }: { count?: number }) {
       })),
     [count],
   );
+
+  if (!mounted) return null;
+
 
   return (
     <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
