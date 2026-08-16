@@ -1,4 +1,5 @@
 import { Link as TLink, useNavigate, useLocation as useTLocation } from "@tanstack/react-router";
+import { useCallback } from "react";
 import type { AnchorHTMLAttributes, ReactNode } from "react";
 
 type LinkProps = { href: string; children?: ReactNode } & Omit<
@@ -28,8 +29,9 @@ export function Link({ href, children, ...rest }: LinkProps) {
 export function useLocation(): [string, (path: string) => void] {
   const loc = useTLocation();
   const navigate = useNavigate();
-  return [
-    loc.pathname,
+  // Stable identity: components use this in useEffect dependency arrays, and a
+  // fresh function each render caused "Maximum update depth exceeded" loops.
+  const go = useCallback(
     (path: string) => {
       if (/^(https?:|mailto:|tel:)/i.test(path)) {
         window.location.href = path;
@@ -37,5 +39,7 @@ export function useLocation(): [string, (path: string) => void] {
       }
       navigate({ to: path });
     },
-  ];
+    [navigate],
+  );
+  return [loc.pathname, go];
 }

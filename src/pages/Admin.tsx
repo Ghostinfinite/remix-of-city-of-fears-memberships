@@ -213,9 +213,8 @@ export default function AdminPage() {
   const [tab, setTab] = useState<Tab>("overview");
 
   useEffect(() => setOwner(isOwnerSession()), []);
-  useEffect(() => {
-    if (!loading && !user && !isOwnerSession()) navigate("/auth");
-  }, [loading, user, navigate, owner]);
+  // No redirect: signed-out visitors get the owner/admin login gate below.
+
 
   async function signOut() {
     ownerLogout();
