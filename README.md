@@ -24,7 +24,7 @@ Name one membership silver name another one gold name another one Platinum and m
 
 This project was built with [Lovable](https://lovable.dev).
 
-**Live app**: https://city-of-fears-roleplay.lovable.app
+**Live app**: https://city-of-fears-portal.lovable.app
 
 ## Build with Lovable
 
