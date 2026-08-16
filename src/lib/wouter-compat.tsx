@@ -1,4 +1,5 @@
 import { Link as TLink, useNavigate, useLocation as useTLocation } from "@tanstack/react-router";
+import { useCallback } from "react";
 import type { AnchorHTMLAttributes, ReactNode } from "react";
 
 type LinkProps = { href: string; children?: ReactNode } & Omit<
