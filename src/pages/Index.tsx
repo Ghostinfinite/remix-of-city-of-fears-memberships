@@ -551,18 +551,21 @@ export default function Index() {
   </div>
 
       {/* HERO */}
-      <section className="relative pt-16 min-h-screen flex items-center">
+      <section className="relative pt-16 min-h-screen flex items-center overflow-hidden scanlines">
         <div className="absolute inset-0 z-0">
-          <img src={heroImg} alt="City of Fears Roleplay key art" className="w-full h-full object-cover opacity-60" />
+          <img src={heroImg} alt="City of Fears Roleplay key art" className="w-full h-full object-cover opacity-60 scale-105 animate-ember" />
           <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, transparent 0%, oklch(0.13 0.02 25 / 0.6) 50%, oklch(0.13 0.02 25) 100%)" }} />
+          <div className="fog" />
+          <Embers count={30} />
         </div>
         <div className="relative z-10 max-w-7xl mx-auto px-6 py-32 w-full">
           <div className="max-w-2xl">
-            <span className="inline-block px-3 py-1 text-xs font-bold tracking-widest uppercase border border-primary/40 text-primary rounded">FiveM Roleplay Server</span>
-            <h1 className="mt-6 font-black uppercase leading-[0.9] tracking-tight"
-              style={{ fontSize: "clamp(3rem, 8vw, 6.5rem)", textShadow: "0 0 40px oklch(0.55 0.24 25 / 0.5)" }}>
+            <span className="inline-block px-3 py-1 text-xs font-bold tracking-widest uppercase border border-primary/40 text-primary rounded flicker">FiveM Roleplay Server</span>
+            <h1 className="mt-6 font-black uppercase leading-[0.9] tracking-tight neon-title"
+              style={{ fontSize: "clamp(3rem, 8vw, 6.5rem)" }}>
               City of <span className="text-primary">Fears</span>
             </h1>
+
             <p className="mt-6 text-lg text-muted-foreground max-w-xl">
               Step into a city where shadows bleed and every alley hides a story. The most immersive horror roleplay experience on FiveM.
             </p>
