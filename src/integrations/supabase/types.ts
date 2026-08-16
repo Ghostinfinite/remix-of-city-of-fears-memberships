@@ -249,6 +249,122 @@ export type Database = {
           },
         ]
       }
+      giveaway_entries: {
+        Row: {
+          created_at: string
+          display_name: string
+          giveaway_id: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          display_name?: string
+          giveaway_id: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          display_name?: string
+          giveaway_id?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "giveaway_entries_giveaway_id_fkey"
+            columns: ["giveaway_id"]
+            isOneToOne: false
+            referencedRelation: "giveaways"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      giveaways: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          description: string
+          ends_at: string | null
+          id: string
+          prize: string
+          status: string
+          title: string
+          updated_at: string
+          winner_name: string | null
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          description?: string
+          ends_at?: string | null
+          id?: string
+          prize?: string
+          status?: string
+          title: string
+          updated_at?: string
+          winner_name?: string | null
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          description?: string
+          ends_at?: string | null
+          id?: string
+          prize?: string
+          status?: string
+          title?: string
+          updated_at?: string
+          winner_name?: string | null
+        }
+        Relationships: []
+      }
+      member_applications: {
+        Row: {
+          body: string
+          character_name: string | null
+          created_at: string
+          decided_at: string | null
+          discord: string | null
+          display_name: string
+          id: string
+          kind: string
+          staff_notes: string | null
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          body?: string
+          character_name?: string | null
+          created_at?: string
+          decided_at?: string | null
+          discord?: string | null
+          display_name?: string
+          id?: string
+          kind?: string
+          staff_notes?: string | null
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          body?: string
+          character_name?: string | null
+          created_at?: string
+          decided_at?: string | null
+          discord?: string | null
+          display_name?: string
+          id?: string
+          kind?: string
+          staff_notes?: string | null
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       phone_requests: {
         Row: {
           created_at: string
@@ -336,6 +452,7 @@ export type Database = {
           display_name: string | null
           email: string | null
           is_banned: boolean
+          referral_code: string | null
           updated_at: string
           user_id: string
         }
@@ -347,6 +464,7 @@ export type Database = {
           display_name?: string | null
           email?: string | null
           is_banned?: boolean
+          referral_code?: string | null
           updated_at?: string
           user_id: string
         }
@@ -358,6 +476,7 @@ export type Database = {
           display_name?: string | null
           email?: string | null
           is_banned?: boolean
+          referral_code?: string | null
           updated_at?: string
           user_id?: string
         }
@@ -405,6 +524,30 @@ export type Database = {
         }
         Relationships: []
       }
+      referrals: {
+        Row: {
+          code: string
+          created_at: string
+          id: string
+          referred_id: string
+          referrer_id: string
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          id?: string
+          referred_id: string
+          referrer_id: string
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          id?: string
+          referred_id?: string
+          referrer_id?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string
@@ -423,6 +566,42 @@ export type Database = {
           id?: string
           role?: Database["public"]["Enums"]["app_role"]
           user_id?: string
+        }
+        Relationships: []
+      }
+      wanted_list: {
+        Row: {
+          bounty: number
+          created_at: string
+          crime: string
+          danger: string
+          id: string
+          name: string
+          photo_url: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          bounty?: number
+          created_at?: string
+          crime?: string
+          danger?: string
+          id?: string
+          name: string
+          photo_url?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          bounty?: number
+          created_at?: string
+          crime?: string
+          danger?: string
+          id?: string
+          name?: string
+          photo_url?: string | null
+          status?: string
+          updated_at?: string
         }
         Relationships: []
       }
@@ -448,6 +627,13 @@ export type Database = {
           posts: number
         }[]
       }
+      giveaway_entry_counts: {
+        Args: never
+        Returns: {
+          entries: number
+          giveaway_id: string
+        }[]
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
@@ -463,6 +649,7 @@ export type Database = {
           display_name: string
         }[]
       }
+      redeem_referral: { Args: { _code: string }; Returns: string }
     }
     Enums: {
       app_role: "member" | "admin" | "owner"
