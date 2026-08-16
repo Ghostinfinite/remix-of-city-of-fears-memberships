@@ -597,6 +597,14 @@ export default function Index() {
         </div>
       </section>
 
+      {/* LIVE STATS */}
+      <LiveStats />
+
+      {/* LEADERBOARD */}
+      <Leaderboard />
+
+
+
       {/* MEMBERSHIPS */}
       <section id="memberships" className="relative py-24 px-6">
         <div className="max-w-7xl mx-auto">
