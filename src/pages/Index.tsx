@@ -504,6 +504,7 @@ export default function Index() {
             <a href="#memberships" className="hover:text-primary transition">Memberships</a>
             <a href="#features" className="hover:text-primary transition">Features</a>
             {user ? <a href="#casino" className="hover:text-primary transition">Casino</a> : <a href="/auth?redirect=casino" className="hover:text-primary transition">Casino Login</a>}
+            <a href="/members" className="hover:text-primary transition">Members</a>
             <a href="/profile" className="hover:text-primary transition">Profile / Tickets</a>
             <a href="/chat" className="hover:text-primary transition">Chat Rooms</a>
             <a href="#departments" className="hover:text-primary transition">Departments</a>

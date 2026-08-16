@@ -13,6 +13,7 @@ import { Route as StoreRouteImport } from './routes/store'
 import { Route as PurchaseRouteImport } from './routes/purchase'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as PhoneRouteImport } from './routes/phone'
+import { Route as MembersRouteImport } from './routes/members'
 import { Route as ForumRouteImport } from './routes/forum'
 import { Route as ChatRouteImport } from './routes/chat'
 import { Route as AuthRouteImport } from './routes/auth'
@@ -37,6 +38,11 @@ const ProfileRoute = ProfileRouteImport.update({
 const PhoneRoute = PhoneRouteImport.update({
   id: '/phone',
   path: '/phone',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MembersRoute = MembersRouteImport.update({
+  id: '/members',
+  path: '/members',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ForumRoute = ForumRouteImport.update({
@@ -71,6 +77,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/chat': typeof ChatRoute
   '/forum': typeof ForumRoute
+  '/members': typeof MembersRoute
   '/phone': typeof PhoneRoute
   '/profile': typeof ProfileRoute
   '/purchase': typeof PurchaseRoute
@@ -82,6 +89,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/chat': typeof ChatRoute
   '/forum': typeof ForumRoute
+  '/members': typeof MembersRoute
   '/phone': typeof PhoneRoute
   '/profile': typeof ProfileRoute
   '/purchase': typeof PurchaseRoute
@@ -94,6 +102,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/chat': typeof ChatRoute
   '/forum': typeof ForumRoute
+  '/members': typeof MembersRoute
   '/phone': typeof PhoneRoute
   '/profile': typeof ProfileRoute
   '/purchase': typeof PurchaseRoute
@@ -107,6 +116,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/chat'
     | '/forum'
+    | '/members'
     | '/phone'
     | '/profile'
     | '/purchase'
@@ -118,6 +128,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/chat'
     | '/forum'
+    | '/members'
     | '/phone'
     | '/profile'
     | '/purchase'
@@ -129,6 +140,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/chat'
     | '/forum'
+    | '/members'
     | '/phone'
     | '/profile'
     | '/purchase'
@@ -141,6 +153,7 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   ChatRoute: typeof ChatRoute
   ForumRoute: typeof ForumRoute
+  MembersRoute: typeof MembersRoute
   PhoneRoute: typeof PhoneRoute
   ProfileRoute: typeof ProfileRoute
   PurchaseRoute: typeof PurchaseRoute
@@ -175,6 +188,13 @@ declare module '@tanstack/react-router' {
       path: '/phone'
       fullPath: '/phone'
       preLoaderRoute: typeof PhoneRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/members': {
+      id: '/members'
+      path: '/members'
+      fullPath: '/members'
+      preLoaderRoute: typeof MembersRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/forum': {
@@ -221,6 +241,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   ChatRoute: ChatRoute,
   ForumRoute: ForumRoute,
+  MembersRoute: MembersRoute,
   PhoneRoute: PhoneRoute,
   ProfileRoute: ProfileRoute,
   PurchaseRoute: PurchaseRoute,
