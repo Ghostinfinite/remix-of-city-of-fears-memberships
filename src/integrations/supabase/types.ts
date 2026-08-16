@@ -440,6 +440,14 @@ export type Database = {
         }
         Returns: number
       }
+      community_stats: {
+        Args: never
+        Returns: {
+          credits: number
+          members: number
+          posts: number
+        }[]
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
@@ -448,6 +456,13 @@ export type Database = {
         Returns: boolean
       }
       is_staff: { Args: { _user_id: string }; Returns: boolean }
+      leaderboard_top: {
+        Args: { _limit?: number }
+        Returns: {
+          credits: number
+          display_name: string
+        }[]
+      }
     }
     Enums: {
       app_role: "member" | "admin" | "owner"
